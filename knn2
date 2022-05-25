@@ -1,0 +1,210 @@
+import math
+import numpy as np
+import collections
+import random as rd
+x = []
+
+def euklides(lista1, lista2):
+    wynik = 0
+    for i in range (len(lista1)-1):
+        wynik+=(lista1[i]- lista2[i])**2
+    return math.sqrt(wynik)
+
+def euklides2(lista1, lista2, utnij = False):
+    if utnij:
+        lista1 = lista1[:-1]
+        lista2 = lista2[:-1]
+    v1 = np.array(lista1)
+    v2 = np.array(lista2)
+    c = v1-v2
+    c = np.dot(c, c)
+    return math.sqrt(c)
+
+def dystanse(line, file):
+    dyst = []
+    i = 0
+    for linia in file:
+       if i < len(file)-1:
+           tmp = file[i]
+           if tmp == line:
+               i += 1
+           else:
+              klasa = int(tmp[-1])
+              tmp = euklides2(line, tmp, True)
+              dystanseup = [klasa, tmp]
+              dyst.append(dystanseup)
+              i += 1
+    return dyst
+
+
+def doslownika(list):
+    i = 0
+    slownik = {}
+    for line in list:
+        if i < len(list)-1:
+            tmp = list[i]
+            klasa = tmp[0]
+            odleglosc = tmp[1]
+            if klasa in slownik:
+                slownik[klasa].append(odleglosc)
+            else:
+                slownik[klasa] = []
+                slownik[klasa].append(odleglosc)
+            i += 1
+    return slownik
+
+def dystanseslownik(slownik):
+    s = {}
+    for i in range(len(slownik)):
+        s["{0}".format(i)] = sum(slownik[i])
+    return s
+
+def omnadren(set):
+    kropki = []
+    dystanseodkropek = []
+    i = 0
+    while(i<=20):
+        kropki = set[i]
+        i +=1
+
+
+
+def monte_carlo(function, a, b, punkty):
+    maxValue = max(map(lambda i: function(i), np.linspace(a, b, punkty, True)))
+    points = [(rd.uniform(a, b), rd.uniform(0, maxValue)) for x in range(punkty)]
+
+    lower = upper = 0
+    for x in points:
+        if x[1] < function(x[0]):
+            lower += 1
+        else:
+            upper += 1
+
+    return maxValue(b - a)(lower / (lower + upper))
+
+
+def riemann(function, a, b, precision):
+    points = tuple(map(lambda i: function(i), np.linspace(a, b, precision, True)))
+    diff = (b - a) / (precision - 1)
+
+    area = 0
+    for x in points[1:]:
+        area += diffx
+
+    return area
+
+
+def trapmann(function, a, b, precision):
+    points = tuple(map(lambda i: function(i), np.linspace(a, b, precision, True)))
+    diff = (b - a) / (precision - 1)
+
+    area = 0
+    for x in range(1, precision):
+        area += diff(points[x] + points[x - 1]) / 2
+
+    return area
+
+def wariancja(macierz):
+    x1 = macierz
+    x2 = np.ones(len(macierz))
+    srednia = (x1*x2)/len(macierz)
+
+'''def regresja(macierz):'''
+
+
+
+
+with open('datasets/australian.dat', 'r') as file:
+    for line in file:
+        tmp = line.split()
+        tmp = list(map(lambda e: float(e), tmp))
+        x.append(tmp)
+
+macierz = [(2,1), (5,2), (7,3), (8,3)]
+
+macierz1 = np.ones((4,2))
+
+print(macierz1)
+
+
+
+'''print('Podaj który wiersz datasetu ma być porównywany ( max', len(x), '):')
+l = int(input())
+print('Podaj wartość parametru k:')
+k = int(input())
+
+listaklas = dystanse(x[l], x)
+
+listaklas = sorted(listaklas)
+
+slownik = doslownika(listaklas)
+
+h = dystanseslownik(slownik)
+
+print(h)'''
+
+
+
+'''
+slownik1 = slownik[1]
+slownik0 = slownik[0]'''
+
+'''
+for klasa in range(len(slownik)):
+dystans1suma = sum(slownik1[:k])
+dystans0suma = sum(slownik0[:k])
+dystans0 = [0, dystans0suma]
+dystans1 = [1, dystans1suma]
+if dystans0[1] > dystans1[1]:
+    print('Klasa decyzyjna to 0')
+else:
+    print('Klasa decyzyjna to 1')'''
+
+
+
+
+
+
+'''
+y = lista[0]
+d(y, x), gdzie x należy do lista bez 0 indeksu
+słownik gdzie kluczem jest lista decyzyjna a wartościami sa odległości
+'''
+
+'''K-nna zrobić'''
+
+'''wykład z 28 lutego 1:10:00'''
+
+'''
+wybieramy kropke
+liczymy dystanse od pozostałych kropek
+zapisujemy klase i dystans
+'''
+
+'''
+zad 1
+metoda całkowania monte carlo
+współczynnik ile jest nad ile pod funkcją * (b-a)*y ~ całka ab f dx
+zad 2
+całkowanie metodą prostokątów
+'''
+
+
+
+
+'''
+definicja wektora 
+kombinacja liniowa - jeżeli mamy wektory to w tym działąniu występuje tylko mnożenie i dzielenie
+wzór: alfa*e1 + beta*e2
+baza kombinacji linowej -> x*[1, 0] + y*[0,1]
+wektory z bazy są ortogonalne (prostopadłe względem siebie)
+kiedy wektory są prostopadłe? Kiedy iloczyn skalarny 2 wektorów wynosi 0
+unormować wektor - zmienić jego długość żeby wynosiła 1
+baza ortonormalna - baza wektorów ortogonalnych i znormalizowanych
+Av = lambda V
+zadanie: zaimplementować metode laplacea-jordana i obliczyć
+wszystko co pisaliśmy do tej pory na repo na gicie
+
+
+
+'''
